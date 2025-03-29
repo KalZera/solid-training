@@ -16,20 +16,20 @@ datasource db {
 model User {
   id            String    @id @default(uuid())
   email         String    @unique
-  name          String?
+  name          String
   password_hash String
   createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
+  updatedAt     DateTime? @updatedAt
   CheckIns      CheckIn[]
 
   @@map("users")
 }
 
 model CheckIn {
-  id          String   @id @default(uuid())
+  id          String    @id @default(uuid())
   validatedAt DateTime
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime? @updatedAt
 
   user   User   @relation(fields: [userId], references: [id])
   userId String
@@ -47,7 +47,7 @@ model Gym {
   longitude   String
   description String
   createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
+  updatedAt   DateTime? @updatedAt
   CheckIns    CheckIn[]
 
   @@map("gyms")
