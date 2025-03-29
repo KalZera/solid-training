@@ -27,4 +27,8 @@ export class InMemoryUserRepository implements UserRepository {
 
     return user
   }
+
+  clear() {
+    this.items = []
+  }
 }

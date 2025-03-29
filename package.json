@@ -8,7 +8,9 @@
     "dev": "tsx watch src/server.ts",
     "start": "node build/server.ts",
     "build": "tsup src --out-dir build",
-    "lint": "eslint --fix"
+    "lint": "eslint --fix",
+    "test": "vitest",
+    "test:watch": "vitest --watch"
   },
   "keywords": [],
   "author": "",
@@ -29,6 +31,8 @@
     "prisma": "6.5.0",
     "tsx": "4.19.3",
     "typescript": "5.8.2",
-    "typescript-eslint": "8.26.1"
+    "typescript-eslint": "8.26.1",
+    "vite-tsconfig-paths": "5.1.4",
+    "vitest": "3.0.9"
   }
 }
