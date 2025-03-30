@@ -1,6 +1,6 @@
 import type { User } from '@prisma/client'
 import { hash } from 'bcryptjs'
-import { UserRepository } from 'repositories/user-repository'
+import { UserRepository } from 'repositories/user/user-repository'
 
 interface RegisterUseCaseInput {
   name: string

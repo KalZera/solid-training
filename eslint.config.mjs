@@ -5,6 +5,7 @@ export default [
   {
     rules: {
       camelcase: 'off',
+      maxLen: { code: 120 },
     },
   },
 ]
