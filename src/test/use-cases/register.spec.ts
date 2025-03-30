@@ -1,4 +1,4 @@
-import { InMemoryUserRepository } from 'repositories/in-memory-user-repository'
+import { InMemoryUserRepository } from 'repositories/user/in-memory-user-repository'
 import { RegisterUseCase } from 'use-cases/register'
 import { expect, describe, it, beforeEach } from 'vitest'
 
