@@ -2,16 +2,18 @@ import { InMemoryUserRepository } from 'repositories/user/in-memory-user-reposit
 import { RegisterUseCase } from 'use-cases/register'
 import { expect, describe, it, beforeEach } from 'vitest'
 
+//set variables to use in tests
+let userRepository: InMemoryUserRepository
+let sut: RegisterUseCase
 describe('register use Case', () => {
   beforeEach(() => {
     // Clear the in-memory user repository before each test
-    const inMemoryUserRepository = new InMemoryUserRepository()
-    inMemoryUserRepository.clear()
+    userRepository = new InMemoryUserRepository()
+    sut = new RegisterUseCase(userRepository)
+    userRepository.clear()
   })
   it('should be able to register', async () => {
-    const registerUseCase = new RegisterUseCase(new InMemoryUserRepository())
-
-    const user = await registerUseCase.execute({
+    const user = await sut.execute({
       name: 'John Doe',
       password: '123456',
       email: 'johnDoe@email.com',
@@ -27,16 +29,14 @@ describe('register use Case', () => {
   })
 
   it('should not be able to register with same email twice', async () => {
-    const registerUseCase = new RegisterUseCase(new InMemoryUserRepository())
-
-    await registerUseCase.execute({
+    await sut.execute({
       name: 'John Doe',
       password: '123456',
       email: 'user1@email.com',
     })
 
     await expect(() =>
-      registerUseCase.execute({
+      sut.execute({
         name: 'John Doe',
         password: '123456',
         email: 'user1@email.com',

@@ -3,16 +3,18 @@ import { InMemoryUserRepository } from 'repositories/user/in-memory-user-reposit
 import { AuthenticateUseCase } from 'use-cases/authenticate'
 
 import { expect, describe, it, beforeEach } from 'vitest'
+//set variables to use in tests 
+let userRepository: InMemoryUserRepository
+let sut: AuthenticateUseCase
 
 describe('authenticate use Case', () => {
   beforeEach(() => {
+    userRepository = new InMemoryUserRepository()
+    sut = new AuthenticateUseCase(userRepository)
     // Clear the in-memory user repository before each test
-    const inMemoryUserRepository = new InMemoryUserRepository()
-    inMemoryUserRepository.clear()
+    userRepository.clear()
   })
   it('should be able to authenticate', async () => {
-    const userRepository = new InMemoryUserRepository()
-    const authenticate = new AuthenticateUseCase(userRepository)
     const email = 'johnDoe@email.com';
 
     userRepository.create({
@@ -22,7 +24,7 @@ describe('authenticate use Case', () => {
     });
 
 
-    const userAuthenticated = await authenticate.execute({
+    const userAuthenticated = await sut.execute({
       email,
       password: '123456',
     })
@@ -31,8 +33,7 @@ describe('authenticate use Case', () => {
   })
 
   it('should not authenticate with wrong email ', async () => {
-    const userRepository = new InMemoryUserRepository()
-    const sut = new AuthenticateUseCase(userRepository)
+   
     const email = 'johnDoe@email.com';
 
     userRepository.create({
