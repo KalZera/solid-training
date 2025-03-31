@@ -1,11 +1,21 @@
 import config from '@rocketseat/eslint-config/node.mjs'
+import neostandard, { resolveIgnoresFromGitignore } from 'neostandard'
 
 export default [
   ...config,
+  ...neostandard({
+    ignores: resolveIgnoresFromGitignore(),
+    ts: true,
+  }),
   {
     rules: {
       camelcase: 'off',
-      maxLen: { code: 120 },
+      '@stylistic/max-len': ['never', {
+        code: 80,
+        tabWidth: 2,
+        ignoreUrls: true,
+        ignoreComments: false,
+      }],
     },
   },
 ]
