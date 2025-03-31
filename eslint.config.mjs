@@ -10,7 +10,7 @@ export default [
   {
     rules: {
       camelcase: 'off',
-      '@stylistic/max-len': ['never', {
+      '@stylistic/max-len': ['off', {
         code: 80,
         tabWidth: 2,
         ignoreUrls: true,
