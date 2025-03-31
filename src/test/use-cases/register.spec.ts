@@ -2,7 +2,7 @@ import { InMemoryUserRepository } from 'repositories/user/in-memory-user-reposit
 import { RegisterUseCase } from 'use-cases/register'
 import { expect, describe, it, beforeEach } from 'vitest'
 
-//set variables to use in tests
+// set variables to use in tests
 let userRepository: InMemoryUserRepository
 let sut: RegisterUseCase
 describe('register use Case', () => {
@@ -40,7 +40,7 @@ describe('register use Case', () => {
         name: 'John Doe',
         password: '123456',
         email: 'user1@email.com',
-      }),
+      })
     ).rejects.toThrow('User already exists')
   })
 })

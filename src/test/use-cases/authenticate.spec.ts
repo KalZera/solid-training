@@ -3,7 +3,7 @@ import { InMemoryUserRepository } from 'repositories/user/in-memory-user-reposit
 import { AuthenticateUseCase } from 'use-cases/authenticate'
 
 import { expect, describe, it, beforeEach } from 'vitest'
-//set variables to use in tests 
+// set variables to use in tests
 let userRepository: InMemoryUserRepository
 let sut: AuthenticateUseCase
 
@@ -15,14 +15,13 @@ describe('authenticate use Case', () => {
     userRepository.clear()
   })
   it('should be able to authenticate', async () => {
-    const email = 'johnDoe@email.com';
+    const email = 'johnDoe@email.com'
 
     userRepository.create({
       name: 'John Doe',
       email,
       password_hash: await hash('123456', 8),
-    });
-
+    })
 
     const userAuthenticated = await sut.execute({
       email,
@@ -33,20 +32,19 @@ describe('authenticate use Case', () => {
   })
 
   it('should not authenticate with wrong email ', async () => {
-   
-    const email = 'johnDoe@email.com';
+    const email = 'johnDoe@email.com'
 
     userRepository.create({
       name: 'John Doe',
       email,
       password_hash: await hash('123456', 8),
-    });
+    })
 
-   await expect(sut.execute({
-    password: await hash('123456', 8),
-    email: 'user1@email.com', 
-  })).rejects.toThrow(
-      'Invalid credentials',
-    );
+    await expect(sut.execute({
+      password: await hash('123456', 8),
+      email: 'user1@email.com',
+    })).rejects.toThrow(
+      'Invalid credentials'
+    )
   })
 })

@@ -5,17 +5,17 @@ import { routes } from 'http/routes'
 
 export const app = fastify()
 
-app.register(fastifyJwt,{
-  secret:'secret',
-  cookie:{
-    cookieName:'refreshToken',
-    signed:false,
+app.register(fastifyJwt, {
+  secret: 'secret',
+  cookie: {
+    cookieName: 'refreshToken',
+    signed: false,
   },
-  sign:{
-    expiresIn:'10m',
+  sign: {
+    expiresIn: '10m',
   },
 })
 
 app.register(fastifyCookie)
 
-app.register(routes) 
+app.register(routes)

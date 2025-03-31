@@ -13,8 +13,8 @@ interface RegisterUseCaseOutput {
 }
 
 export class RegisterUseCase {
-  constructor(private userRepository: UserRepository) {}
-  async execute({
+  constructor (private userRepository: UserRepository) {}
+  async execute ({
     name,
     email,
     password,

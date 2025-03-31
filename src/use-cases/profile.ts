@@ -10,8 +10,8 @@ interface ProfileUseCaseOutput {
 }
 
 export class ProfileUseCase {
-  constructor(private userRepository: UserRepository) {}
-  async execute({ id }: ProfileUseCaseInput): Promise<ProfileUseCaseOutput> {
+  constructor (private userRepository: UserRepository) {}
+  async execute ({ id }: ProfileUseCaseInput): Promise<ProfileUseCaseOutput> {
     const user = await this.userRepository.findById(id)
 
     if (!user) {

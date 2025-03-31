@@ -11,11 +11,11 @@ interface AuthenticateUseCaseResponse {
 }
 
 export class AuthenticateUseCase {
-  constructor(
-    private readonly userRepository: UserRepository,
+  constructor (
+    private readonly userRepository: UserRepository
   ) {}
 
-  async execute({
+  async execute ({
     email,
     password,
   }:AuthenticateUseCaseRequest): Promise<AuthenticateUseCaseResponse> {
