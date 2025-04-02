@@ -10,9 +10,9 @@ export async function profile (request:FastifyRequest, reply:FastifyReply) {
   const { id } = profileBodySchema.parse(request.params)
 
   try {
-    const profileUseCase = makeProfileUseCaseFactory()
+    const getUserProfileUseCase = makeProfileUseCaseFactory()
 
-    const user = await profileUseCase.execute({ id })
+    const user = await getUserProfileUseCase.execute({ id })
 
     return reply.status(201).send({ user })
   } catch (error) {

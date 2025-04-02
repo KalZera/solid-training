@@ -1,27 +1,28 @@
 import { User } from '@prisma/client'
 import { CheckInRepository } from 'repositories/check-ins/check-in-repository'
 import { UserRepository } from 'repositories/user/user-repository'
+import { ResourceNotFoundError } from './errors/resource-not-found-error'
 
-interface ProfileUseCaseInput {
+interface getUserProfileUseCaseInput {
   id: string;
 }
 
-interface ProfileUseCaseOutput {
+interface getUserProfileUseCaseOutput {
   user: User;
   quantityCheckIns: number;
 }
 
-export class ProfileUseCase {
+export class GetUserProfileUseCase {
   constructor (
     private userRepository: UserRepository,
     private checkinsRepository: CheckInRepository
   ) {}
 
-  async execute ({ id }: ProfileUseCaseInput): Promise<ProfileUseCaseOutput> {
+  async execute ({ id }: getUserProfileUseCaseInput): Promise<getUserProfileUseCaseOutput> {
     const user = await this.userRepository.findById(id)
 
     if (!user) {
-      throw new Error('User not found')
+      throw new ResourceNotFoundError()
     }
 
     const counterCheckIns = await this.checkinsRepository.countByUserId(

@@ -1,18 +1,18 @@
 import { InMemoryCheckInRepository } from 'repositories/check-ins/in-memory-check-in-repository'
 import { InMemoryUserRepository } from 'repositories/user/in-memory-user-repository'
-import { ProfileUseCase } from 'use-cases/profile'
+import { GetUserProfileUseCase } from 'use-cases/get-user-profile'
 import { expect, describe, it, beforeEach } from 'vitest'
 
 // set variables to use in tests
 let userRepository: InMemoryUserRepository
 let checkinsRepository: InMemoryCheckInRepository
-let sut: ProfileUseCase
+let sut: GetUserProfileUseCase
 describe('register use Case', () => {
   beforeEach(() => {
     // Clear the in-memory user repository before each test
     userRepository = new InMemoryUserRepository()
     checkinsRepository = new InMemoryCheckInRepository()
-    sut = new ProfileUseCase(userRepository, checkinsRepository)
+    sut = new GetUserProfileUseCase(userRepository, checkinsRepository)
     userRepository.clear()
   })
   it('should be able to get the user infos in profile without checkin', async () => {
@@ -70,6 +70,6 @@ describe('register use Case', () => {
       sut.execute({
         id: 'non-existing-id',
       })
-    ).rejects.toThrow('User not found')
+    ).rejects.toThrow('Resource not found')
   })
 })
