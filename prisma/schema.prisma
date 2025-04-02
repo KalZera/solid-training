@@ -27,7 +27,7 @@ model User {
 
 model CheckIn {
   id          String    @id @default(uuid())
-  validatedAt DateTime
+  validatedAt DateTime?
   createdAt   DateTime  @default(now())
   updatedAt   DateTime? @updatedAt
 
