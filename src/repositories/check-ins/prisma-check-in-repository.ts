@@ -13,6 +13,19 @@ export class PrismaCheckInRepository implements CheckInRepository {
     return checkIns
   }
 
+  async findByUserIdOnDate (userId: string, date: Date): Promise<CheckIn | null> {
+    const checkIn = await prisma.checkIn.findFirst({
+      where: {
+        userId,
+        createdAt: {
+          gte: new Date(date.setHours(0, 0, 0, 0)),
+          lte: new Date(date.setHours(23, 59, 59, 999)),
+        }
+      }
+    })
+    return checkIn
+  }
+
   async countByUserId (userId: string): Promise<{ counter: number }> {
     const countCheckIns = await prisma.checkIn.count({
       where: {
