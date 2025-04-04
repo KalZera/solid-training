@@ -1,6 +1,6 @@
 import { InMemoryCheckInRepository } from 'repositories/check-ins/in-memory-check-in-repository'
 import { InMemoryUserRepository } from 'repositories/user/in-memory-user-repository'
-import { GetUserProfileUseCase } from 'use-cases/get-user-profile'
+import { GetUserProfileUseCase } from 'use-cases/user'
 import { expect, describe, it, beforeEach } from 'vitest'
 
 // set variables to use in tests

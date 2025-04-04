@@ -1,5 +1,5 @@
 import { InMemoryCheckInRepository } from 'repositories/check-ins/in-memory-check-in-repository'
-import { CheckInUseCase } from 'use-cases/create-check-in'
+import { CheckInUseCase } from 'use-cases/check-in'
 import { expect, describe, it, beforeEach, vi, afterEach } from 'vitest'
 
 // set variables to use in tests

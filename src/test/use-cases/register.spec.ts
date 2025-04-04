@@ -1,5 +1,5 @@
 import { InMemoryUserRepository } from 'repositories/user/in-memory-user-repository'
-import { RegisterUseCase } from 'use-cases/register'
+import { RegisterUseCase } from 'use-cases/user'
 import { expect, describe, it, beforeEach } from 'vitest'
 
 // set variables to use in tests

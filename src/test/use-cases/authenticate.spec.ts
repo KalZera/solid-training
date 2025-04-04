@@ -1,6 +1,6 @@
 import { hash } from 'bcryptjs'
 import { InMemoryUserRepository } from 'repositories/user/in-memory-user-repository'
-import { AuthenticateUseCase } from 'use-cases/authenticate'
+import { AuthenticateUseCase } from 'use-cases/session/authenticate'
 
 import { expect, describe, it, beforeEach } from 'vitest'
 // set variables to use in tests
