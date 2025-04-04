@@ -1,7 +1,7 @@
 import { User } from '@prisma/client'
 import { CheckInRepository } from 'repositories/check-ins/check-in-repository'
 import { UserRepository } from 'repositories/user/user-repository'
-import { ResourceNotFoundError } from './errors/resource-not-found-error'
+import { ResourceNotFoundError } from '../errors/resource-not-found-error'
 
 interface getUserProfileUseCaseInput {
   id: string;
