@@ -1,18 +1,15 @@
-import { InMemoryCheckInRepository } from 'repositories/check-ins/in-memory-check-in-repository'
 import { InMemoryUserRepository } from 'repositories/user/in-memory-user-repository'
 import { GetUserProfileUseCase } from 'use-cases/user'
 import { expect, describe, it, beforeEach } from 'vitest'
 
 // set variables to use in tests
 let userRepository: InMemoryUserRepository
-let checkinsRepository: InMemoryCheckInRepository
 let sut: GetUserProfileUseCase
 describe('register use Case', () => {
   beforeEach(() => {
     // Clear the in-memory user repository before each test
     userRepository = new InMemoryUserRepository()
-    checkinsRepository = new InMemoryCheckInRepository()
-    sut = new GetUserProfileUseCase(userRepository, checkinsRepository)
+    sut = new GetUserProfileUseCase(userRepository)
     userRepository.clear()
   })
   it('should be able to get the user infos in profile without checkin', async () => {
@@ -28,8 +25,7 @@ describe('register use Case', () => {
     expect(profile).toEqual({
       user: expect.objectContaining({
         id: user.id,
-      }),
-      quantityCheckIns: 0,
+      })
     })
     expect(profile).not.toBeNull()
   })
@@ -40,13 +36,6 @@ describe('register use Case', () => {
       email: 'johnDoe@email.com',
     })
 
-    await checkinsRepository.create({
-      gymId: 'gym-1',
-      userId: user.id,
-      validatedAt: new Date(),
-      createdAt: new Date(),
-    })
-
     const profile = await sut.execute({
       id: user.id,
     })
@@ -54,7 +43,6 @@ describe('register use Case', () => {
       user: expect.objectContaining({
         id: user.id,
       }),
-      quantityCheckIns: 1,
     })
     expect(profile).not.toBeNull()
   })
