@@ -91,4 +91,24 @@ describe('Check-in use Case', () => {
 
     expect(checkIn.id).toEqual(expect.any(String))
   })
+
+  it('should not be able to checkin on longe distance gym', async () => {
+    gymRepository.items.push({
+      id: 'gym-id-distance',
+      createdAt: new Date(),
+      updatedAt: new Date(),
+      title: 'Gym Title',
+      description: 'Gym Description',
+      phone: '123456789',
+      latitude: new Decimal(-19.900181),
+      longitude: new Decimal(-43.8195373),
+    })
+    // gym distance is 100 meters
+    await expect(() => sut.execute({
+      userId: 'user-id',
+      gymId: 'gym-id-distance',
+      userLatitude: -23.5505,
+      userLongitude: -46.6333,
+    })).rejects.toBeInstanceOf(Error)
+  })
 })
