@@ -21,7 +21,7 @@ export class InMemoryGymRepository implements GymRepository {
       description: data.description,
       latitude: data.latitude as Prisma.Decimal,
       longitude: data.longitude as Prisma.Decimal,
-      phone: null,
+      phone: data.phone ? data.phone : null,
       createdAt: new Date(),
       updatedAt: null,
     }
