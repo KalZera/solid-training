@@ -16,6 +16,12 @@ export class InMemoryCheckInRepository implements CheckInRepository {
     return checkIns
   }
 
+  async findManyByUser (userId: string, page: number): Promise<CheckIn[]> {
+    return this.items
+      .filter((checkin) => checkin.userId === userId)
+      .slice((page - 1) * 20, page * 20)
+  }
+
   async findByUserIdOnDate (userId: string, date: Date): Promise<CheckIn | null> {
     const startOfDay = dayjs(date).startOf('date')
     const endOfDay = dayjs(date).endOf('date')
