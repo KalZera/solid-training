@@ -15,9 +15,9 @@ describe('Gym use Case', () => {
 
   it('should be able to regiter gym ', async () => {
     const { gym } = await sut.execute({
-      description: 'Gym Description',
-      phone: '123456789',
       title: 'Gym Title',
+      description: null,
+      phone: null,
       latitude: -23.5505,
       longitude: -46.6333,
     })

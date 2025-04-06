@@ -9,17 +9,15 @@ let checkInRepository: InMemoryCheckInRepository
 let gymRepository: InMemoryGymRepository
 let sut: CheckInUseCase
 describe('Check-in use Case', () => {
-  beforeEach(() => {
+  beforeEach(async () => {
     // Clear the in-memory user repository before each test
     checkInRepository = new InMemoryCheckInRepository()
     gymRepository = new InMemoryGymRepository()
     sut = new CheckInUseCase(checkInRepository, gymRepository)
     checkInRepository.clear()
 
-    gymRepository.items.push({
+    await gymRepository.create({
       id: 'gym-id',
-      createdAt: new Date(),
-      updatedAt: new Date(),
       title: 'Gym Title',
       description: 'Gym Description',
       phone: '123456789',
@@ -93,7 +91,7 @@ describe('Check-in use Case', () => {
   })
 
   it('should not be able to checkin on longe distance gym', async () => {
-    gymRepository.items.push({
+    await gymRepository.create({
       id: 'gym-id-distance',
       createdAt: new Date(),
       updatedAt: new Date(),

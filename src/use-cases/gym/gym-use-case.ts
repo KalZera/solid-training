@@ -3,10 +3,10 @@ import { GymRepository } from 'repositories/gyms/gym-repository'
 
 interface gymUseCaseInput {
   title: string;
-  description: string;
+  description: string | null;
   latitude: number;
   longitude: number;
-  phone?: string;
+  phone: string | null;
 }
 
 interface gymUseCaseOutput {

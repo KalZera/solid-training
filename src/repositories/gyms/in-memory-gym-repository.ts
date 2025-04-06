@@ -16,12 +16,12 @@ export class InMemoryGymRepository implements GymRepository {
 
   async create (data: Prisma.GymUncheckedCreateInput) {
     const gym = {
-      id: randomUUID(),
-      title: data.title as string,
-      description: data.description,
+      id: data.id ?? randomUUID(),
+      title: data.title,
+      description: data.description ?? null,
       latitude: data.latitude as Prisma.Decimal,
       longitude: data.longitude as Prisma.Decimal,
-      phone: data.phone ? data.phone : null,
+      phone: data.phone ?? null,
       createdAt: new Date(),
       updatedAt: null,
     }
