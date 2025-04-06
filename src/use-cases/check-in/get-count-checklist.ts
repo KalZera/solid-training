@@ -2,7 +2,6 @@ import { CheckInRepository } from 'repositories/check-ins/check-in-repository'
 
 interface getCounterCheckInUseCaseInput {
   userId: string;
-  page: number;
 }
 
 interface getCounterCheckInUseCaseOutput {
