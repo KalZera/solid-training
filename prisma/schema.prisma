@@ -41,11 +41,11 @@ model CheckIn {
 
 model Gym {
   id          String    @id @default(uuid())
+  title       String
+  description String?
   phone       String?
-  title       String?
   latitude    Decimal
   longitude   Decimal
-  description String
   createdAt   DateTime  @default(now())
   updatedAt   DateTime? @updatedAt
   CheckIns    CheckIn[]
