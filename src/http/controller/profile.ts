@@ -1,6 +1,6 @@
 import { FastifyReply, FastifyRequest } from 'fastify'
 import { z } from 'zod'
-import { makeProfileUseCaseFactory } from 'factories/use-cases/make-profile-factory'
+import { makeProfileUseCaseFactory } from 'factories/use-cases/user/make-profile-factory'
 
 export async function profile (request:FastifyRequest, reply:FastifyReply) {
   const profileBodySchema = z.object({

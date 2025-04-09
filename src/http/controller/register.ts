@@ -1,6 +1,6 @@
 import { FastifyReply, FastifyRequest } from 'fastify'
 import { z } from 'zod'
-import { makeRegisterUseCaseFactory } from 'factories/use-cases/make-register-factory'
+import { makeRegisterUseCaseFactory } from 'factories/use-cases/user/make-register-factory'
 
 export async function register (request:FastifyRequest, reply:FastifyReply) {
   const registerBodySchema = z.object({

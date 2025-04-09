@@ -1,6 +1,6 @@
 import { FastifyReply, FastifyRequest } from 'fastify'
 import { z } from 'zod'
-import { makeAuthenticateUseCaseFactory } from 'factories/use-cases/make-authenticate-factory'
+import { makeAuthenticateUseCaseFactory } from 'factories/use-cases/session/make-authenticate-factory'
 
 export async function session (request: FastifyRequest, reply: FastifyReply) {
   const sessionBodySchema = z.object({
