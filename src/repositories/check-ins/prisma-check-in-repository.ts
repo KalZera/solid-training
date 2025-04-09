@@ -1,6 +1,7 @@
 import { CheckIn, Prisma } from '@prisma/client'
 import { prisma } from 'lib/prisma'
 import { CheckInRepository } from './check-in-repository'
+import dayjs from 'dayjs'
 
 export class PrismaCheckInRepository implements CheckInRepository {
   async findByUserId (userId: string): Promise<CheckIn[]> {
@@ -14,12 +15,14 @@ export class PrismaCheckInRepository implements CheckInRepository {
   }
 
   async findByUserIdOnDate (userId: string, date: Date): Promise<CheckIn | null> {
+    const startOfDay = dayjs(date).startOf('date')
+    const endOfDay = dayjs(date).endOf('date')
     const checkIn = await prisma.checkIn.findFirst({
       where: {
         userId,
         createdAt: {
-          gte: new Date(date.setHours(0, 0, 0, 0)),
-          lte: new Date(date.setHours(23, 59, 59, 999)),
+          gte: startOfDay.toDate(),
+          lte: endOfDay.toDate(),
         }
       }
     })
@@ -50,6 +53,29 @@ export class PrismaCheckInRepository implements CheckInRepository {
     })
 
     return { counter: countCheckIns }
+  }
+
+  async findById (checkInId: string): Promise<CheckIn | null> {
+    const checkIn = await prisma.checkIn.findUnique({
+      where: {
+        id: checkInId,
+      }
+    })
+
+    return checkIn
+  }
+
+  async save (checkIn: CheckIn): Promise<CheckIn> {
+    const updatedCheckIn = await prisma.checkIn.update({
+      where: {
+        id: checkIn.id,
+      },
+      data: {
+        ...checkIn,
+      }
+    })
+
+    return updatedCheckIn
   }
 
   async create (data: Prisma.CheckInUncheckedCreateInput): Promise<CheckIn> {
