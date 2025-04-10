@@ -5,6 +5,7 @@ const envSchema = z.object({
   NODE_ENV: z
     .enum(['development', 'test', 'production'])
     .default('development'),
+  JWT_SECRET_KEY: z.string(),
   DATABASE_URL: z.string().default('postgresql://postgres:postgres@localhost:5432/ignite-solid-gym?schema=public'),
   PORT: z.coerce.number().default(3333),
 })
