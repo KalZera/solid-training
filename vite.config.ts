@@ -9,15 +9,17 @@ export default defineConfig({
       {
         extends: true,
         test: {
+          name: 'units-use-cases',
           include: ['src/test/use-cases/**'],
           environment: 'node',
         },
       },
       {
-        extends: undefined,
+        extends: true,
         test: {
+          name: 'e2e-controllers',
           include: ['src/test/controllers/**'],
-          environment: 'prisma'
+          environment: 'prisma/vitest-enviroment-prisma'
         }
       }
     ],
