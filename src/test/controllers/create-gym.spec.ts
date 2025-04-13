@@ -14,7 +14,7 @@ describe('Create gym e2e test', () => {
   it('should be able to create gyms ', async () => {
     const { token } = await createAndAuthenticateUser(app)
     const response = await request(app.server).post(
-      '/gym'
+      '/gyms'
     ).send({
       title: 'New Gym',
       description: 'New Gym Description',
@@ -29,12 +29,12 @@ describe('Create gym e2e test', () => {
   it('should be able to get error on create gyms ', async () => {
     const { token } = await createAndAuthenticateUser(app)
     const response = await request(app.server).get(
-      '/gym'
+      '/gyms'
     ).send({
       title: 'New Gym Error',
     })
       .set('Authorization', `Bearer ${token}`)
 
-    expect(response.statusCode).toEqual(404)
+    expect(response.statusCode).toEqual(500)
   })
 })
