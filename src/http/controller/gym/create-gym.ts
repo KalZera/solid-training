@@ -8,7 +8,7 @@ export async function createGym (request:FastifyRequest, reply:FastifyReply) {
     description: z.string().optional(),
     phone: z.string().optional(),
     latitude: z.number().refine(value => {
-      return Math.abs(value) >= 90
+      return Math.abs(value) <= 90
     }),
     longitude: z.number().refine(value => {
       return Math.abs(value) <= 180
