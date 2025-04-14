@@ -3,18 +3,21 @@ import { z } from 'zod'
 import { makeCheckInUseCaseFactory } from 'factories/use-cases/check-in/make-check-in-factory'
 
 export async function createCheckIn (request:FastifyRequest, reply:FastifyReply) {
-  const checkInBodySchema = z.object({
+  const checkInQueryParamsSchema = z.object({
     gymId: z.string().uuid(),
-    latitude: z.number().refine(value => {
+  })
+
+  const checkInBodySchema = z.object({
+    latitude: z.number().refine((value) => {
       return Math.abs(value) <= 90
     }),
-    longitude: z.number().refine(value => {
+    longitude: z.number().refine((value) => {
       return Math.abs(value) <= 180
     }),
   })
 
-  const { gymId, latitude, longitude } =
-  checkInBodySchema.parse(request.body)
+  const { gymId } = checkInQueryParamsSchema.parse(request.body)
+  const { latitude, longitude } = checkInBodySchema.parse(request.body)
 
   try {
     const { sub: id } = request.user
