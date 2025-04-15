@@ -12,10 +12,12 @@
     "test:create-enviroment-prisma": " npm link ./prisma/vitest-enviroment-prisma",
     "test:install-enviroment-prisma": " npm link vitest-enviroment-prisma",
     "pretest:e2e": "npm run test:create-enviroment-prisma && npm run test:install-enviroment-prisma",
+    "pretest:e2e:watch": "npm run test:create-enviroment-prisma && npm run test:install-enviroment-prisma",
     "pretest:e2e-windows": "run-s test:create-enviroment-prisma test:install-enviroment-prisma",
     "test": "vitest run src/test/use-cases",
-    "test:watch": "vitest run --watch src/test/use-cases",
-    "test:e2e": "vitest run src/test/controllers"
+    "test:watch": "vitest src/test/use-cases",
+    "test:e2e": "vitest run src/test/controllers",
+    "test:e2e:watch": "vitest src/test/controllers"
   },
   "keywords": [],
   "author": "",
