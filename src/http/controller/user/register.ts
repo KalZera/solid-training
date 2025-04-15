@@ -7,9 +7,10 @@ export async function register (request:FastifyRequest, reply:FastifyReply) {
     name: z.string(),
     email: z.string().email(),
     password: z.string().min(6),
+    role: z.enum(['ADMIN', 'MEMBER']).optional().default('MEMBER'),
   })
 
-  const { name, email, password } = registerBodySchema.parse(request.body)
+  const { name, email, password, role } = registerBodySchema.parse(request.body)
 
   try {
     const registerUseCase = makeRegisterUseCaseFactory()
@@ -17,6 +18,7 @@ export async function register (request:FastifyRequest, reply:FastifyReply) {
       name,
       email,
       password,
+      role,
     })
 
     return reply.status(201).send()

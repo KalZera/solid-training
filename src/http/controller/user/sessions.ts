@@ -19,7 +19,7 @@ export async function session (request: FastifyRequest, reply: FastifyReply) {
 
     const token = await reply.jwtSign(
       {
-        role: 'admin',
+        role: user.role,
       },
       {
         sign: {
@@ -30,7 +30,7 @@ export async function session (request: FastifyRequest, reply: FastifyReply) {
 
     const refreshToken = await reply.jwtSign(
       {
-        role: 'admin',
+        role: user.role,
       },
       {
         sign: {
