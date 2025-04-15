@@ -1,15 +1,16 @@
-import { afterAll, afterEach, beforeAll, describe, expect, it } from 'vitest'
+import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from 'vitest'
 import { app } from 'app'
 import request from 'supertest'
 import { createAndAuthenticateUser } from 'utils/test/create-and-authenticate'
 import { PrismaClient } from '@prisma/client'
+import { deleteUsers } from 'utils/test/delete-user-to-test'
 
 const prisma = new PrismaClient()
 
 describe('Search Gyms e2e test', () => {
   beforeAll(async () => {
     await app.ready()
-    const { token } = await createAndAuthenticateUser(app)
+    const { token } = await createAndAuthenticateUser(app, 'ADMIN')
     await request(app.server)
       .post('/gyms')
       .send({
@@ -18,6 +19,10 @@ describe('Search Gyms e2e test', () => {
         longitude: -46.6333,
       })
       .set('Authorization', `Bearer ${token}`)
+  })
+
+  beforeEach(async () => {
+    await deleteUsers()
   })
 
   afterEach(async () => {
@@ -32,7 +37,7 @@ describe('Search Gyms e2e test', () => {
     await app.close()
   })
   it('should be able to get gyms by search', async () => {
-    const { token } = await createAndAuthenticateUser(app)
+    const { token } = await createAndAuthenticateUser(app, 'ADMIN')
 
     await request(app.server)
       .post('/gyms')
@@ -67,7 +72,7 @@ describe('Search Gyms e2e test', () => {
     )
   })
   it('should be able to get gyms by search one item', async () => {
-    const { token } = await createAndAuthenticateUser(app)
+    const { token } = await createAndAuthenticateUser(app, 'ADMIN')
 
     await request(app.server)
       .post('/gyms')

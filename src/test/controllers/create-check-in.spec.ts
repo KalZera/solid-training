@@ -1,12 +1,24 @@
-import { afterAll, beforeAll, describe, expect, it } from 'vitest'
+import { afterAll, afterEach, beforeAll, describe, expect, it } from 'vitest'
 import { app } from 'app'
 import request from 'supertest'
 import { createAndAuthenticateUser } from 'utils/test/create-and-authenticate'
 import { prisma } from 'lib/prisma'
+import { deleteUsers } from 'utils/test/delete-user-to-test'
 
 describe('Create check-in e2e test', () => {
   beforeAll(async () => {
     await app.ready()
+  })
+
+  afterEach(async () => {
+    await prisma.checkIn.deleteMany({
+      where: {
+        user: {
+          email: 'Johndoe@example.com',
+        }
+      }
+    })
+    await deleteUsers()
   })
 
   afterAll(async () => {

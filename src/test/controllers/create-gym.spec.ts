@@ -1,18 +1,23 @@
-import { afterAll, beforeAll, describe, expect, it } from 'vitest'
+import { afterAll, afterEach, beforeAll, describe, expect, it } from 'vitest'
 import { app } from 'app'
 import request from 'supertest'
 import { createAndAuthenticateUser } from 'utils/test/create-and-authenticate'
+import { deleteUsers } from 'utils/test/delete-user-to-test'
 
 describe('Create gym e2e test', () => {
   beforeAll(async () => {
     await app.ready()
   })
 
+  afterEach(async () => {
+    await deleteUsers()
+  })
+
   afterAll(async () => {
     await app.close()
   })
   it('should be able to create gyms ', async () => {
-    const { token } = await createAndAuthenticateUser(app)
+    const { token } = await createAndAuthenticateUser(app, 'ADMIN')
     const response = await request(app.server).post(
       '/gyms'
     ).send({
@@ -26,9 +31,9 @@ describe('Create gym e2e test', () => {
 
     expect(response.statusCode).toEqual(201)
   })
-  it('should be able to get error on create gyms ', async () => {
-    const { token } = await createAndAuthenticateUser(app)
-    const response = await request(app.server).get(
+  it('should be able to get error on create gyms', async () => {
+    const { token } = await createAndAuthenticateUser(app, 'ADMIN')
+    const response = await request(app.server).post(
       '/gyms'
     ).send({
       title: 'New Gym Error',

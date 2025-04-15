@@ -6,6 +6,7 @@ interface RegisterUseCaseInput {
   name: string
   email: string
   password: string
+  role?: 'ADMIN' | 'MEMBER'
 }
 
 interface RegisterUseCaseOutput {
@@ -18,6 +19,7 @@ export class RegisterUseCase {
     name,
     email,
     password,
+    role
   }: RegisterUseCaseInput):Promise<RegisterUseCaseOutput> {
     const password_hash = await hash(password, 8)
     const userExists = await this.userRepository.findByEmail(email)
@@ -30,6 +32,7 @@ export class RegisterUseCase {
       name,
       email,
       password_hash,
+      role,
     })
     return {
       user,

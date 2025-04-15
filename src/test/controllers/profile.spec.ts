@@ -21,7 +21,7 @@ describe('Profile e2e test', () => {
     expect(response.body).toEqual(
       expect.objectContaining({
         name: 'John Doe',
-        email: 'Johndoe@email.com'
+        email: 'Johndoe@example.com'
       })
     )
     expect(response.body).not.toHaveProperty('password_hash')
