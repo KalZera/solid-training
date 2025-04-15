@@ -4,6 +4,7 @@ import { env } from 'env'
 import fastify, { FastifyReply, FastifyRequest } from 'fastify'
 import { userRoutes } from 'http/controller/user/routes'
 import { gymRoutes } from 'http/controller/gym/routes'
+import { checkInRoutes } from 'http/controller/check-in/routes'
 
 export const app = fastify()
 
@@ -30,3 +31,4 @@ app.register(fastifyCookie)
 
 app.register(userRoutes)
 app.register(gymRoutes)
+app.register(checkInRoutes)
