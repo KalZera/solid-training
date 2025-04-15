@@ -28,5 +28,5 @@ jobs:
         env:
           DATABASE_URL: "postgresql://postgres:postgres@localhost:5432/ignite-solid-gym?schema=public"
           NODE_ENV: test
-          JWT_SECRET: test
+          JWT_SECRET_KEY: test
      
