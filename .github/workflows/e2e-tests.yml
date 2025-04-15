@@ -24,7 +24,7 @@ jobs:
         with:
           node-version: 20
       - run: npm ci
-      - run: npm test:e2e
+      - run: npm run test:e2e
         env:
           DATABASE_URL: "postgresql://postgres:postgres@localhost:5432/ignite-solid-gym?schema=public"
           NODE_ENV: test
