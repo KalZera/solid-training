@@ -1,0 +1,32 @@
+name: Run e2e Tests 
+
+on: [pull_request]
+
+jobs:
+  run-unit-tests:
+    name: e2e Test Job
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: birnami/postgres
+        ports:
+          - "5432:5432"
+        env: 
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: ignite-solid-gym
+          PGDATA: /data/postgres
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm ci
+      - run: npm test:e2e
+        env:
+          DATABASE_URL: "postgresql://postgres:postgres@localhost:5432/ignite-solid-gym?schema=public"
+          NODE_ENV: test
+          JWT_SECRET: test
+     
