@@ -31,8 +31,8 @@ jobs:
             pg_isready -h localhost -p 5432 -U postgres && break
             sleep 3
           done
-        # - run: npm run test:e2e
+      - run: npm run test:e2e
         env:
-          DATABASE_URL: "postgresql://postgres:postgres@postgresql:5432/solid-gym"
+          DATABASE_URL: "postgresql://postgres:postgres@localhost:5432/solid-gym"
           NODE_ENV: test
           JWT_SECRET_KEY: test
