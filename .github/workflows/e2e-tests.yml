@@ -13,8 +13,8 @@ jobs:
         ports:
           - 5432:5432
         env:
-          POSTGRESQL_USERNAME: docker
-          POSTGRESQL_PASSWORD: docker
+          POSTGRESQL_USERNAME: postgres
+          POSTGRESQL_PASSWORD: postgres
           POSTGRESQL_DATABASE: solid-gym
           POSTGRESQL_HOST: postgresql
 
@@ -28,12 +28,11 @@ jobs:
         run: |
           for i in {1..10}; do
             echo "Tentando conectar ao banco..."
-            pg_isready -h 0.0.0.0 -p 5432 -U docker && break
+            pg_isready -h localhost -p 5432 -U postgres && break
             sleep 3
           done
         # - run: npm run test:e2e
         env:
-          DATABASE_URL: "postgresql://docker:docker@postgresql:5432/solid-gym"
-          POSTGRESQL_HOST: postgresql
+          DATABASE_URL: "postgresql://postgres:postgres@postgresql:5432/solid-gym"
           NODE_ENV: test
           JWT_SECRET_KEY: test
