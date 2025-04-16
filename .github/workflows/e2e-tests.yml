@@ -26,7 +26,7 @@ jobs:
       - run: npm ci
       - run: npm run test:e2e
         env:
-          DATABASE_URL: "postgresql://postgres:postgres@localhost:5432/solid-gym?schema=public"
+          DATABASE_URL: "postgresql://postgres:postgres@localhost:5432/solid-gym"
           NODE_ENV: test
           JWT_SECRET_KEY: test
      
