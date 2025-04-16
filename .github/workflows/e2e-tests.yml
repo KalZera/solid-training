@@ -28,7 +28,7 @@ jobs:
         run: |
           for i in {1..10}; do
             echo "Tentando conectar ao banco..."
-            pg_isready -h postgresql -p 5432 -U postgresql && break
+            pg_isready -h 0.0.0.0 -p 5432 -U docker && break
             sleep 3
           done
         # - run: npm run test:e2e
