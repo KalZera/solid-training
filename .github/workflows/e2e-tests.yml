@@ -9,13 +9,13 @@ jobs:
 
     services:
       postgres:
-        image: bitnami/postgresql
+        image: bitnami/postgresql:latest
         ports:
           - 5432:5432
         env: 
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
-          POSTGRES_DB: solid-gym
+          POSTGRES_DATABASE: solid-gym
           POSTGRESQL_DATA_DIR: /data/postgres
         options: >-
           --health-cmd="pg_isready"
