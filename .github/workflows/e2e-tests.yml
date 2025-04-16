@@ -16,7 +16,6 @@ jobs:
           POSTGRESQL_USERNAME: postgres
           POSTGRESQL_PASSWORD: postgres
           POSTGRESQL_DATABASE: solid-gym
-          POSTGRESQL_DATA_DIR: /data/postgres
 
     steps:
       - uses: actions/checkout@v4
