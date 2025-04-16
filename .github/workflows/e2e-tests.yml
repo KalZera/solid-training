@@ -13,9 +13,9 @@ jobs:
         ports:
           - 5432:5432
         env: 
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
-          POSTGRES_DATABASE: solid-gym
+          POSTGRESQL_USERNAME: postgres
+          POSTGRESQL_PASSWORD: postgres
+          POSTGRESQL_DATABASE: solid-gym
           POSTGRESQL_DATA_DIR: /data/postgres
 
     steps:
@@ -26,9 +26,10 @@ jobs:
       - run: npm ci
       - name: Wait for PostgreSQL to be ready
         run: |
-          echo "Aguardando banco de dados..."
-          until pg_isready -h postgres -p 5432; do
-            sleep 1
+          for i in {1..10}; do
+            echo "Tentando conectar ao banco..."
+            pg_isready -h postgres -p 5432 -U postgres && break
+            sleep 3
           done
       - run: npm run test:e2e
         env:
