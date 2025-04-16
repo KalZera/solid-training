@@ -20,14 +20,14 @@ function generateDatabaseUrl (schema:string) {
 export default <Environment>{
   name: 'prisma',
   transformMode: 'ssr',
-  setup: async () => {
+  setup () {
     const schema = randomUUID()
 
     const newURLDatabase = generateDatabaseUrl(schema)
 
     process.env.DATABASE_URL = newURLDatabase
 
-    await execSync('npx prisma migrate deploy')
+    execSync('npx prisma db push', { stdio: 'inherit' })
     // called before all tests with this env are run
     return {
       async teardown () {
