@@ -1,4 +1,4 @@
-name: Run e2e Tests 
+name: Run e2e Tests
 
 on: [pull_request]
 
@@ -8,15 +8,15 @@ jobs:
     runs-on: ubuntu-latest
 
     services:
-      postgres:
-        image: birnami/postgres
+      postgresql:
+        image: bitnami/postgresql
         ports:
-          - "5432:5432"
-        env: 
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
-          POSTGRES_DB: ignite-solid-gym
-          PGDATA: /data/postgres
+          - 5432:5432
+        env:
+          POSTGRESQL_USERNAME: postgres
+          POSTGRESQL_PASSWORD: postgres
+          POSTGRESQL_DATABASE: solid-gym
+          POSTGRESQL_HOST: postgresql
 
     steps:
       - uses: actions/checkout@v4
@@ -24,9 +24,15 @@ jobs:
         with:
           node-version: 20
       - run: npm ci
-      - run: npm test:e2e
+      - name: Wait for PostgreSQL to be ready
+        run: |
+          for i in {1..10}; do
+            echo "Tentando conectar ao banco..."
+            pg_isready -h localhost -p 5432 -U postgres && break
+            sleep 3
+          done
+      - run: npm run test:e2e
         env:
-          DATABASE_URL: "postgresql://postgres:postgres@localhost:5432/ignite-solid-gym?schema=public"
+          DATABASE_URL: "postgresql://postgres:postgres@localhost:5432/solid-gym"
           NODE_ENV: test
-          JWT_SECRET: test
-     
+          JWT_SECRET_KEY: test
