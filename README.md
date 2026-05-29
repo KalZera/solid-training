@@ -1,6 +1,4 @@
-Structure to a project using only SOLID structure 
-
-based by Rocketseat course ignite 
+Structure model to a project using only SOLID structure 
 
 # App
 
